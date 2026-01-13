@@ -1,6 +1,6 @@
 📸 Obscura Backend - A Photo Vault Backend API
 
-A robust backend REST API for a Photo Vault application that allows users to securely upload, manage, and organize photos. The system supports authentication, role-based access control, cloud image storage, caching, and abuse prevention mechanisms.
+A robust backend REST API for a Photo Vault application that allows users to securely upload, manage, create albulms and organize photos. The system supports authentication, role-based access control, cloud image storage, caching, and abuse prevention mechanisms.
 
 🚀 Features
 
