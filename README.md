@@ -56,4 +56,4 @@ Caching: Redis
 
 Security: Helmet, Rate Limiting, RBAC
 
-Environment Management: dotenv
+Environment Management: dotenv.
