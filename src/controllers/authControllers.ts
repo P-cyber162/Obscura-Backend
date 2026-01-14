@@ -11,6 +11,7 @@ const signToken = (id: string): string => {
     )
 };
 
+// SIGNUP USER
 export const signUp = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
     try{
         const { username, email, password, confirmPassword } = req.body;
@@ -40,6 +41,8 @@ export const signUp = async(next: NextFunction, req: Request, res: Response): Pr
     }
 };
 
+
+// LOGIN USER
 export const login = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
     try{
         const { email, password } = req.body;
@@ -52,7 +55,7 @@ export const login = async(next: NextFunction, req: Request, res: Response): Pro
             })
         }
 
-        // FIND USER WITH EAMIL & PASSWORD
+        // FIND USER WITH EMAIL & PASSWORD
         const user = await User.findOne({ email }).select("+password");
 
         // CHECK IF USER EXISTS
@@ -79,3 +82,5 @@ export const login = async(next: NextFunction, req: Request, res: Response): Pro
         })
     }
 }
+
+// PROTECT ROUTES
