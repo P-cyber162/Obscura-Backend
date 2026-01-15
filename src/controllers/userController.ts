@@ -70,7 +70,7 @@ export const getUser = async(next: NextFunction, req: Request, res: Response): P
 }
 
 // DELETE USER - ADMIN
-export const createUser = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const deleteUser = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
     try{
         const { username } = req.params;
 
