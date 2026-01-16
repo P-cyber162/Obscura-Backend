@@ -1,7 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
-import { User }  from '../models/userModel';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
+import crypto from 'crypto';
+import { sendPasswordResetEmail } from '../utils/sendEmail';
+import { User }  from '../models/userModel';
+
 
 const signToken = (id: string): string => {
     return jwt.sign(
@@ -123,7 +126,7 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
                 message: 'User this token belongs to does ont exist!'
             })
             return;
-        }
+        };
 
         req.user = freshUser;
 
@@ -134,5 +137,47 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
             statsu: 'fail',
             message: 'Invalid or expired token!'
         });
+    }
+};
+
+export const forgotPassword = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { email } = req.body;
+
+        const user = User.findOne({email});
+
+        if(!user){
+            res.status(200).json({
+                status: 'success',
+                message: 'If email exist, we sent a reset link!'
+            });
+            return;
+        };
+
+        const resetToken = crypto.randomBytes(32).toString('hex');
+
+        const hashedToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex')
+
+        user.resetPasswordToken = hashedToken;
+        user.resetPassswordExpires = new Date(Date.now() + (60 * 60 * 1000));
+
+        await user.save();
+
+        const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/resetPassword/${resetToken}`
+        await sendPasswordResetEmail(user.email, resetUrl);
+        
+        res.status(200).json({
+            status: 'success',
+            message: 'Password reset link sent to email!'
+        })
+
+    }catch(err){
+        res.status(500).json({
+            status: 'fail',
+            message: err instanceof Error? err.message : 'Server Error'
+        })
     }
 }
