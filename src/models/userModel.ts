@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import bcryptjs from 'bcryptjs';
 import validator from 'validator';
-import { timeStamp } from 'node:console';
 
 export interface IUser extends Document {
     username: string,
