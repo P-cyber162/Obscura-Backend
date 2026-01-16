@@ -10,8 +10,8 @@ export interface IUser extends Document {
     role: string,
     createdAt: Date,
     updatedAt: Date,
-    resetPasswordToken: string,
-    resetPassswordExpires: Date,
+    resetPasswordToken?: string | undefined,
+    resetPasswordExpires?: Date | undefined,
 };
 
 const userSchema = new Schema<IUser>({
@@ -52,6 +52,12 @@ const userSchema = new Schema<IUser>({
         type:String,
         enum: ['user', 'admin', 'guest'],
         default: 'user'
+    },
+    resetPasswordToken: {
+        type: String,
+    },
+    resetPasswordExpires: {
+        type: Date
     }
 }, { timestamps: true });
 

@@ -84,7 +84,7 @@ export const login = async(next: NextFunction, req: Request, res: Response): Pro
             message: err instanceof Error? err.message : 'Server Error'
         })
     }
-}
+};
 
 // PROTECT ROUTES
 export const protect = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
@@ -162,7 +162,7 @@ export const forgotPassword = async(req: Request, res: Response, next: NextFunct
         .digest('hex')
 
         user.resetPasswordToken = hashedToken;
-        user.resetPassswordExpires = new Date(Date.now() + (60 * 60 * 1000));
+        user.resetPasswordExpires = new Date(Date.now() + (60 * 60 * 1000));
 
         await user.save();
 
