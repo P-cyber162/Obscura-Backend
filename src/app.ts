@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import session from 'express-session';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
-import passport, { initialize } from 'passport';
+import passport from './config/passport';
 
 const app = express();
 
