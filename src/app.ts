@@ -11,6 +11,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const apiLimitter = createApiLimitter();
 
+if(process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
 app.use('/api', apiLimitter);
 
 app.use('/api/v1/auth', authRoutes);
