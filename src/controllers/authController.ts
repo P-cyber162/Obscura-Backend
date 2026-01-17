@@ -118,7 +118,7 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
         const decoded = jwt.verify(token, secret) as {id: string};
 
         // FIND USER WITH DECODED ID
-        const freshUser = User.findById(decoded.id);
+        const freshUser = await User.findById(decoded.id);
 
         if(!freshUser){
             res.status(404).json({
@@ -140,11 +140,12 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
     }
 };
 
+// FORGOT PASSWORD
 export const forgotPassword = async(req: Request, res: Response, next: NextFunction) => {
     try{
         const { email } = req.body;
 
-        const user = User.findOne({email});
+        const user = await User.findOne({email});
 
         if(!user){
             res.status(200).json({
@@ -180,4 +181,79 @@ export const forgotPassword = async(req: Request, res: Response, next: NextFunct
             message: err instanceof Error? err.message : 'Server Error'
         })
     }
-}
+};
+
+// RESET PASSWORD
+export const resetPassword = async(req: Request, res: Response, next: NextFunction) => {
+    try{
+        const { token } = req.params;
+        const { newPassword } = req.body;
+
+        if(!token || typeof token !== 'string') {
+            res.status(400).json({
+                status: 'fail',
+                message: 'Token is required!'
+            });
+            return;
+        };
+
+        if(!newPassword || newPassword.length < 8){
+            res.status(400).json({
+                status: 'fail',
+                message: 'Password must be at least 8 characters!'
+            });
+            return;
+        };
+
+        const hashedToken = crypto
+        .createHash('sha256')
+        .update(token)
+        .digest('hex')
+
+        const user = await User.findOne({
+            resetPasswordToken: hashedToken,
+            resetPasswordExpires: { $gte: Date.now() }
+        });
+
+        if(!user) {
+            res.status(400).json({
+                status: 'error',
+                message: 'Invalid or expired reset token!'
+            });
+            return;
+        };
+
+        user.password = newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        await user.save();
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Password reset successful!'
+        });
+
+    }catch(err){
+        res.status(500).json({
+            status: 'fail',
+            message: err instanceof Error? err.message : 'Server Error'
+        });
+    }
+};
+
+// RBAC - ROLE BASE ACCESS MANAGMENT
+export const restrictTo = (...roles: string[]) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        if(!req.user || !roles.includes(req.user.role)){
+            return res.status(403).json({
+                status: 'fail',
+                message: 'You do not have access to this action!'
+            })
+        }
+        next();
+    };
+}; 
+
+// OAUTH
+
