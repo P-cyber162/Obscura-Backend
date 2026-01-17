@@ -30,6 +30,7 @@ export const createAuthLimitter = () => rateLimit({
     },
     standardHeaders: true,
     legacyHeaders: false,
+    skipSuccessfulRequests: true,
 });
 
 export const createPasswordResetLimitter = () => rateLimit({

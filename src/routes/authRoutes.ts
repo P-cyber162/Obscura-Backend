@@ -1,26 +1,22 @@
 import express from 'express';
 import { signUp, login, forgotPassword, resetPassword } from '../controllers/authController';
-import { createAuthLimitter, createPasswordResetLimitter } from '../middleware/rateLimmtter';
 
 const router = express.Router();
 
-const authLimitter = createAuthLimitter();
-const passwordLimitter = createPasswordResetLimitter;
-
 router
     .route('/register')
-    .post(authLimitter, signUp);
+    .post(signUp);
 
 router  
     .route('/login')
-    .post(authLimitter, login);
+    .post(login);
 
 router
-    .route('/forgotPassword')
-    .post(passwordLimitter, forgotPassword);
+    .route('/forgot-password')
+    .post(forgotPassword);
 
 router
-    .route('/resetPassword')
-    .post(passwordLimitter, resetPassword);
+    .route('/reset-password')
+    .post(resetPassword);
 
 export default router;
