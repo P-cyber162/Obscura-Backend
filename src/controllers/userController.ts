@@ -96,6 +96,7 @@ export const deleteUser = async(next: NextFunction, req: Request, res: Response)
 
         res.status(200).json({
             status: 'success',
+            message: 'Account deleted',
             data: {
                 user
             }
