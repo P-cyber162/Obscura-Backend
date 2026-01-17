@@ -2,6 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import crypto from 'crypto';
+import passport from 'passport';
 import { sendPasswordResetEmail } from '../utils/sendEmail';
 import { User }  from '../models/userModel';
 
@@ -255,4 +256,31 @@ export const restrictTo = (...roles: string[]) => {
     };
 }; 
 
-// OAUTH
+// GOOGLE OAUTH
+export const googleAuth = passport.authenticate('google', {
+    scope: ['profile', 'email']
+});
+
+export const  googleCallback = (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate('google', { session: false }, (err: any, user: any) => {
+        if(err || !user) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'OAuth Failed!'
+            });
+        };
+
+        const token = signToken(user._id.toString());
+
+        res.status(200).json({
+            status: 'success',
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                role: user.role
+            }
+        });
+    })(req, res, next);
+};
