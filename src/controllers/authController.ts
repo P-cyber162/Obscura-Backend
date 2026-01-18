@@ -16,15 +16,14 @@ const signToken = (id: string): string => {
 };
 
 // SIGNUP USER
-export const signUp = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const signUp = async(req: Request, res: Response): Promise<void> => {
     try{
-        const { username, email, password, confirmPassword } = req.body;
+        const { username, email, password } = req.body;
 
         const newUser = await User.create({
             username,
             email,
-            password,
-            confirmPassword
+            password
         });
 
         const token = signToken(newUser._id.toString());
@@ -35,7 +34,7 @@ export const signUp = async(next: NextFunction, req: Request, res: Response): Pr
             data: {
                 newUser
             }
-        })
+        });
 
     }catch(err){
         res.status(400).json({
@@ -47,7 +46,7 @@ export const signUp = async(next: NextFunction, req: Request, res: Response): Pr
 
 
 // LOGIN USER
-export const login = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const login = async(req: Request, res: Response): Promise<void> => {
     try{
         const { email, password } = req.body;
 
@@ -73,7 +72,7 @@ export const login = async(next: NextFunction, req: Request, res: Response): Pro
 
         const token = signToken(user._id.toString());
 
-            res.status(400).json({
+            res.status(200).json({
                 status: 'success',
                 token
             })
@@ -124,7 +123,7 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
         if(!freshUser){
             res.status(404).json({
                 status: 'fail',
-                message: 'User this token belongs to does ont exist!'
+                message: 'User this token belongs to does not exist!'
             })
             return;
         };
@@ -142,7 +141,7 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
 };
 
 // FORGOT PASSWORD
-export const forgotPassword = async(req: Request, res: Response, next: NextFunction) => {
+export const forgotPassword = async(req: Request, res: Response) => {
     try{
         const { email } = req.body;
 
@@ -161,14 +160,14 @@ export const forgotPassword = async(req: Request, res: Response, next: NextFunct
         const hashedToken = crypto
         .createHash('sha256')
         .update(resetToken)
-        .digest('hex')
+        .digest('hex') 
 
         user.resetPasswordToken = hashedToken;
         user.resetPasswordExpires = new Date(Date.now() + (60 * 60 * 1000));
 
         await user.save();
 
-        const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/resetPassword/${resetToken}`
+        const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/auth/reset-password/${resetToken}`
         await sendPasswordResetEmail(user.email, resetUrl);
         
         res.status(200).json({
@@ -185,7 +184,7 @@ export const forgotPassword = async(req: Request, res: Response, next: NextFunct
 };
 
 // RESET PASSWORD
-export const resetPassword = async(req: Request, res: Response, next: NextFunction) => {
+export const resetPassword = async(req: Request, res: Response) => {
     try{
         const { token } = req.params;
         const { newPassword } = req.body;
@@ -255,7 +254,7 @@ export const restrictTo = (...roles: string[]) => {
         next();
     };
 }; 
-
+ 
 // GOOGLE OAUTH
 export const googleAuth = passport.authenticate('google', {
     scope: ['profile', 'email']

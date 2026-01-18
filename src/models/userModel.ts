@@ -38,16 +38,6 @@ const userSchema = new Schema<IUser>({
         select: false,
         required: [true, 'A password is required!']
     },
-    confirmPassword: {
-        type: String,
-        required: [true, 'Please confirm your password!'],
-        validate: {
-            validator: function (this: IUser, value) {
-                return value === this.password
-            },
-            message: 'Password does not match!'
-        }
-    },
     role: {
         type:String,
         enum: ['user', 'admin', 'guest'],
@@ -66,7 +56,6 @@ userSchema.pre('save', async function() {
     if(this.isModified('password')) {
         this.password = await bcryptjs.hash(this.password, 12);
     }
-    this.confirmPassword = undefined;
 });
 
 export const User = mongoose.model<IUser>('User', userSchema);

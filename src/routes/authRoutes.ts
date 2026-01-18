@@ -23,7 +23,7 @@ router
     .post(forgotPassword);
 
 router
-    .route('/reset-password')
+    .route('/reset-password/:token')
     .post(resetPassword);
 
 router 

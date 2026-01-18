@@ -26,7 +26,7 @@ export const createAuthLimitter = () => rateLimit({
     max: 5,
     message: {
         status: 'error',
-        message: 'Too many authntication attempts. Please try again after 1 hour.'
+        message: 'Too many authentication attempts. Please try again after 1 hour.'
     },
     standardHeaders: true,
     legacyHeaders: false,
