@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import session from 'express-session';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
+import uploadRoutes from './routes/uploadRoutes';
 import passport from './config/passport';
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(passport.session());
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/uploads', uploadRoutes);
 
 // GLOBAL ERROR HANDLER
 app.use((err: Error, req: Request, res:Response, next: NextFunction) => {
