@@ -1,16 +1,19 @@
 import express from 'express';
-import { protect } from '../controllers/authController';
+import { createAdmin, protect, restrictTo } from '../controllers/authController';
 import { getAllUsers, getUser, deleteUser } from './../controllers/userController';
 
 const router = express.Router();
 
 router
     .route('/')
-    .get(protect, getAllUsers);
+    .get(protect, restrictTo('admin'), getAllUsers);
 
+router  
+    .route('/creaat-admin')
+    .post(protect, createAdmin)
 router
      .route('/:username')
-     .get(protect, getUser)
-     .delete(protect, deleteUser);
+     .get(protect, restrictTo('admin'), getUser)
+     .delete(protect, restrictTo('admin'), deleteUser);
 
 export default router;

@@ -12,6 +12,7 @@ export interface IAlbum extends Document {
 const albumSchema = new Schema<IAlbum>({
     name: {
         type: String,
+        unique: true,
         required: [true, 'An album is required!'],
         trim: true
     },

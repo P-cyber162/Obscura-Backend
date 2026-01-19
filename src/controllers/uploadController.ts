@@ -1,4 +1,4 @@
-import express, {type Request, type Response } from 'express';
+import type { Request, Response } from 'express';
 import cloudinary from '../config/cloudinary';
 
 export const uploadSingle = async (req: Request, res: Response) => {
@@ -9,7 +9,7 @@ export const uploadSingle = async (req: Request, res: Response) => {
 
         if (result) {
             return res.status(200).json({
-                success: true,
+                status: 'success',
                 message: 'Uploaded!',
                 data: {
                     result
@@ -17,16 +17,16 @@ export const uploadSingle = async (req: Request, res: Response) => {
             });
         }
 
-        res.status(500).json({
-            success: false,
+        res.status(400).json({
+            status: 'fail',
             message: 'Upload failed'
         });
 
     } catch (error) {
         res.status(500).json({
-            success: false,
+            status: 'fail',
             message: 'Error',
             error: error instanceof Error ? error.message : 'Server Error!'
         });
     }
-}
+};

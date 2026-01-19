@@ -18,12 +18,13 @@ const signToken = (id: string): string => {
 // SIGNUP USER
 export const signUp = async(req: Request, res: Response): Promise<void> => {
     try{
-        const { username, email, password } = req.body;
+        const { username, email, password, role } = req.body;
 
         const newUser = await User.create({
             username,
             email,
-            password
+            password,
+            role: role || 'user'
         });
 
         const token = signToken(newUser._id.toString());
@@ -83,6 +84,37 @@ export const login = async(req: Request, res: Response): Promise<void> => {
             status: 'fail',
             message: err instanceof Error? err.message : 'Server Error'
         })
+    }
+};
+
+// CREATE ADMIN 
+export const createAdmin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { username, email, password } = req.body;
+    
+        if (req.user?.role !== 'admin') {
+            res.status(403).json({
+                status: 'fail',
+                message: 'Only admins can create admin accounts!'
+            });
+            return;
+        }
+
+        const newAdmin = await User.create({
+            username,
+            email,
+            password,
+            role: 'admin'  // ← Create as admin
+        });
+    
+        res.status(201).json({
+            status: 'success',
+            message: 'Admin created successfully',
+            data: { user: newAdmin }
+        });
+
+    } catch(error) {
+        next(error);
     }
 };
 
