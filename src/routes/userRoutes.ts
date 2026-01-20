@@ -14,6 +14,6 @@ router
 router
      .route('/:username')
      .get(protect, restrictTo('admin'), getUser)
-     .delete(protect, restrictTo('admin'), deleteUser);
+     .delete(protect, deleteUser);
 
 export default router;

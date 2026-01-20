@@ -24,7 +24,6 @@ export const signUp = async(req: Request, res: Response): Promise<void> => {
             username,
             email,
             password,
-            role: role || 'user'
         });
 
         const token = signToken(newUser._id.toString());
@@ -124,14 +123,15 @@ export const createAdmin = async (req: Request, res: Response): Promise<void> =>
 };
 
 // PROTECT ROUTES
-export const protect = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const protect = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try{
         let token;
 
         if(
             req.headers.authorization && req.headers.authorization.startsWith('Bearer')
         ){
-            token = req.headers.authorization.split('')[1];
+            token = req.headers.authorization.split(' ')[1];
+            console.log('Extracted token:', token);
         }
 
         if(!token) {
@@ -171,7 +171,7 @@ export const protect = async(next: NextFunction, req: Request, res: Response): P
 
     }catch(err){
         res.status(401).json({
-            statsu: 'fail',
+            status: 'fail',
             message: 'Invalid or expired token!'
         });
     }

@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { User } from './../models/userModel';
 
 // GET ALL USERS - ADMIN
-export const getAllUsers = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const getAllUsers = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
     try{
         const users = await User.find();
 
@@ -30,7 +30,7 @@ export const getAllUsers = async(next: NextFunction, req: Request, res: Response
 }
 
 // GET A SINGLE USER - ADMIN
-export const getUser = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const getUser = async( req: Request, res: Response, next: NextFunction): Promise<void> => {
     try{
         const { username } = req.params;
 
@@ -70,7 +70,7 @@ export const getUser = async(next: NextFunction, req: Request, res: Response): P
 }
 
 // DELETE USER - ADMIN
-export const deleteUser = async(next: NextFunction, req: Request, res: Response): Promise<void> => {
+export const deleteUser = async( req: Request, res: Response, next: NextFunction): Promise<void> => {
     try{
         const { username } = req.params;
 
