@@ -88,7 +88,7 @@ export const login = async(req: Request, res: Response): Promise<void> => {
 };
 
 // CREATE ADMIN 
-export const createAdmin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const createAdmin = async (req: Request, res: Response): Promise<void> => {
     try {
         const { username, email, password } = req.body;
     
@@ -98,23 +98,28 @@ export const createAdmin = async (req: Request, res: Response, next: NextFunctio
                 message: 'Only admins can create admin accounts!'
             });
             return;
-        }
-
+        };
+        
         const newAdmin = await User.create({
             username,
             email,
             password,
-            role: 'admin'  // ← Create as admin
+            role: 'admin'  
         });
-    
+
         res.status(201).json({
             status: 'success',
             message: 'Admin created successfully',
-            data: { user: newAdmin }
+            data: { 
+                user: newAdmin 
+            }
         });
 
-    } catch(error) {
-        next(error);
+    } catch(err) {
+        res.status(500).json({
+            status: 'fail',
+            message: err instanceof Error? err.message : 'Server Error'
+        })
     }
 };
 

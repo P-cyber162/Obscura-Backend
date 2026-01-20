@@ -9,7 +9,7 @@ router
     .get(protect, restrictTo('admin'), getAllUsers);
 
 router  
-    .route('/creaat-admin')
+    .route('/create-admin')
     .post(protect, createAdmin)
 router
      .route('/:username')
