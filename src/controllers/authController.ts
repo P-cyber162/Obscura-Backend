@@ -276,7 +276,7 @@ export const resetPassword = async(req: Request, res: Response) => {
             status: 'fail',
             message: err instanceof Error? err.message : 'Server Error'
         });
-    };
+    }
 };
 
 // RBAC - ROLE BASE ACCESS MANAGMENT
