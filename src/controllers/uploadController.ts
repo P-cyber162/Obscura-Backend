@@ -29,4 +29,4 @@ export const uploadSingle = async (req: Request, res: Response) => {
             error: error instanceof Error ? error.message : 'Server Error!'
         });
     }
-}
+};
