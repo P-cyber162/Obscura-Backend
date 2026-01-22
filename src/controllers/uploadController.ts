@@ -3,7 +3,14 @@ import cloudinary from '../config/cloudinary';
 
 export const uploadSingle = async (req: Request, res: Response) => {
     try {
-        const result = await cloudinary.uploader.upload(req.file!.path, {
+        if (!req.file?.path) {
+            return res.status(400).json({
+            status: 'fail',
+            message: 'File upload failed! Please provide an image'
+            });
+        }
+
+        const result = await cloudinary.uploader.upload(req.file.path, {
             folder: 'uploads'
         });
 
