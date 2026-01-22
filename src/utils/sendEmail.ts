@@ -8,6 +8,7 @@ export const sendPasswordResetEmail = async (email: string, resetUrl:string) => 
             pass: process.env.EMAIL_PASSWORD,
         }
     });
+
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
