@@ -23,5 +23,5 @@ export const sendPasswordResetEmail = async (email: string, resetUrl:string) => 
     };
 
     await transporter.sendMail(mailOptions);
-    console.log('Email Sent successfully!');
+    console.log('Email Sent successfully!')
 };
