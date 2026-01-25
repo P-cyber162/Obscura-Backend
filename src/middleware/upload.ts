@@ -6,7 +6,7 @@ const uploadDir = path.join(process.cwd(), 'uploads');
 
 // ensure folder exists
 if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir)
+    fs.mkdirSync(uploadDir);
 }
 
 const storage = multer.diskStorage({
