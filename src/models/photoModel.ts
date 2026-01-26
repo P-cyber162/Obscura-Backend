@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document} from "mongoose";
-import type { IAlbum } from "./albulmModel";
+import type { IAlbum } from "./albumModel";
 
 export interface IPhoto extends Document {
     title: string,
@@ -8,7 +8,7 @@ export interface IPhoto extends Document {
     publicId: string,
     visibility: 'public' | 'private',
     owner: mongoose.Types.ObjectId,
-    albulm?: mongoose.Types.ObjectId,
+    album?: mongoose.Types.ObjectId,
     createdAt: Date,
     updatedAt: Date,
 };
@@ -43,7 +43,7 @@ export const photoSchema = new Schema<IPhoto>({
         ref: 'User',
         required: [true, 'Photo must belong to a user!']
     },
-    albulm: {
+    album: {
         type: Schema.Types.ObjectId,
         ref: 'Album',
     }

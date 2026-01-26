@@ -1,5 +1,6 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 import morgan from 'morgan';
+import cors from "cors";
 import session from 'express-session';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
@@ -8,6 +9,7 @@ import passport from './config/passport';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
