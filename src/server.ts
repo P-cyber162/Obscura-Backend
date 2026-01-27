@@ -32,7 +32,7 @@ const startServer = async () => {
     }
     catch (err) {
         console.log('Error:💥 DB connection failed!');
-    };
+    }
 };
 
 startServer();
