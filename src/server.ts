@@ -10,7 +10,7 @@ dotenv.config();
 const startServer = async () => {
     try {
         // DATABASE CONNECTION
-        await connectDB()
+        await connectDB();
 
         // CONNECT REDIS
         await connectRedis();
