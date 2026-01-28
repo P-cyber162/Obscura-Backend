@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import passport from './config/passport';
+import ApiError from './utils/ApiError';
 
 const app = express();
 
@@ -39,10 +40,13 @@ app.use('/api/v1/uploads', uploadRoutes);
 
 // GLOBAL ERROR HANDLER
 app.use((err: Error, req: Request, res:Response, next: NextFunction) => {
-    console.error('Global error: ', err);
-    res.status(500).json({
+    const apiError = err as ApiError;
+
+    const statusCode = apiError.statusCode || 500;
+    const status = apiError.status || 'error';
+    res.status(statusCode).json({
         status: 'error',
-        message: err.message || 'Something went wrong!'
+        message: err.message || 'Internal Server Error!'
     });
 });
 
