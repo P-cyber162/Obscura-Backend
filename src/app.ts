@@ -6,7 +6,6 @@ import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import passport from './config/passport';
-import ApiError from './utils/ApiError';
 import { globalErrorHandler } from './controllers/errorController';
 
 const app = express();
