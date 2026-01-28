@@ -24,16 +24,7 @@ const startServer = async () => {
         app.use('/api/v1/auth/register', authLimitter);
         app.use('/api/v1/auth/login', authLimitter);
         app.use('/api/v1/auth/forgot-password', passwordLimitter);
-        app.use('api/v1/auth/reset-password', passwordLimitter);
-
-        app.all('*', (req: Request, res: Response, next: NextFunction) => {
-            /*res.status(400).json({
-                status: 'fail',
-                message: `Can't access ${req.originalUrl} on this server!`
-            });*/
-            const err = new ApiError(`Can't access ${req.originalUrl} on this server!`, 404);
-            next(err);
-        });
+        app.use('/api/v1/auth/reset-password', passwordLimitter);
         
         const port = process.env.PORT || 3000;
         app.listen(port, () => {
@@ -41,7 +32,7 @@ const startServer = async () => {
         });
     }
     catch (err) {
-        console.log('Error:💥 DB connection failed!');
+        console.log('Error💥:', err);
     };
 };
 
