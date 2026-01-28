@@ -6,7 +6,6 @@ import { createApiLimitter, createAuthLimitter, createPasswordResetLimitter } fr
 import type { Request, Response, NextFunction } from 'express';
 import ApiError from './utils/ApiError';
 
-
 dotenv.config();
 
 const startServer = async () => {
