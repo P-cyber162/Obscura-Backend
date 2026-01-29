@@ -6,7 +6,6 @@ import fs from 'fs/promises';  // ← For cleanup
 // UPLOAD SINGLE PHOTO
 export const uploadSingle = async (req: Request, res: Response) => {
     try {
-        // 1. Check if file exists
         if (!req.file?.path) {
             return res.status(400).json({
                 status: 'fail',
@@ -14,10 +13,10 @@ export const uploadSingle = async (req: Request, res: Response) => {
             });
         }
 
-        // 2. Get metadata from request body
+
         const { title, description, visibility = 'private', albumId } = req.body;
 
-        // 3. Validate required fields
+
         if (!title) {
             return res.status(400).json({
                 status: 'fail',
@@ -25,7 +24,6 @@ export const uploadSingle = async (req: Request, res: Response) => {
             });
         }
 
-        // 4. Upload to Cloudinary
         const result = await cloudinary.uploader.upload(req.file.path, {
             folder: 'uploads'
         });
@@ -37,21 +35,19 @@ export const uploadSingle = async (req: Request, res: Response) => {
             });
         }
 
-        // 5. Save photo details to MongoDB
         const photo = await Photo.create({
             title: title,
             description: description,
-            url: result.secure_url,        // Cloudinary URL
-            publicId: result.public_id,    // For deletion
+            url: result.secure_url,        
+            publicId: result.public_id,    
             visibility: visibility,
-            owner: req.user!._id,          // From auth middleware
-            album: albumId || undefined    // Optional album
+            owner: req.user!._id,          
+            album: albumId || undefined    
         });
 
-        // 6. Clean up local file (optional but recommended)
         await fs.unlink(req.file.path).catch(() => {});
 
-        // 7. Send response with photo data
+       
         return res.status(201).json({
             status: 'success',
             message: 'Photo uploaded successfully!',
