@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import { User } from './../models/userModel';
-import { CatchAsync } from '../utils/catchAsync';
+import { catchAsync } from '../utils/catchAsync';
 
 // GET ALL USERS - ADMIN
 export const getAllUsers = async(req: Request, res: Response, next: NextFunction): Promise<void> => {
