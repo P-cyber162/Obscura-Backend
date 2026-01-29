@@ -5,6 +5,8 @@ import session from 'express-session';
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
+import photoRoutes from './routes/photoRoutes';
+import albumRoutes from './routes/albumRoutes';
 import passport from './config/passport';
 import { globalErrorHandler } from './controllers/errorController';
 
@@ -37,6 +39,8 @@ app.use(passport.session());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/uploads', uploadRoutes);
+app.use('/api/v1/photos', photoRoutes);
+app.use('/api/v1/albums', albumRoutes);
 
 // GLOBAL ERROR HANDLER
 app.use(globalErrorHandler);

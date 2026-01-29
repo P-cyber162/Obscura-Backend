@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document} from "mongoose";
-import type { IAlbum } from "./albumModel";
 
 export interface IPhoto extends Document {
     title: string,

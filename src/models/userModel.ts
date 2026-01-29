@@ -40,7 +40,7 @@ const userSchema = new Schema<IUser>({
     },
     role: {
         type:String,
-        enum: ['user', 'admin', 'guest'],
+        enum: ['user', 'admin'],
         default: 'user'
     },
     resetPasswordToken: {

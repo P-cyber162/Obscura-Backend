@@ -1,10 +1,14 @@
 import express from 'express';
 import { upload } from '../middleware/upload';
 import { uploadMultiple, uploadSingle } from '../controllers/uploadController';
-
+import { protect } from '../controllers/authController';
 const router = express.Router();
 
-router.post('/single', upload.single('image'), uploadSingle);
-router.post('/multiple',upload.array('photos', 10), uploadMultiple);
+router
+    .route('/single')
+    .post(protect, upload.single('image'), uploadSingle);
+router
+    .route('/multiple')
+    .post(protect, upload.array('photos', 10), uploadMultiple);
 
-export default router;
+export default router; 
