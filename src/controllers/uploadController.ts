@@ -52,12 +52,12 @@ export const uploadSingle = async (req: Request, res: Response) => {
             status: 'success',
             message: 'Photo uploaded successfully!',
             data: {
-                photo  // MongoDB document
+                photo  
             }
         });
 
     } catch (error) {
-        // Clean up file if error occurs
+        
         if (req.file?.path) {
             await fs.unlink(req.file.path).catch(() => {});
         }
@@ -73,7 +73,7 @@ export const uploadSingle = async (req: Request, res: Response) => {
 // UPLOAD MULTIPLE PHOTOS
 export const uploadMultiple = async (req: Request, res: Response) => {
     try {
-        // 1. Check if files exist
+        
         if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
             return res.status(400).json({
                 status: 'fail',
@@ -81,14 +81,12 @@ export const uploadMultiple = async (req: Request, res: Response) => {
             });
         }
 
-        // 2. Get metadata from request body
+        
         const { titles, descriptions, visibility = 'private', albumId } = req.body;
 
-        // 3. Parse arrays if sent as JSON strings
         const titleArray = typeof titles === 'string' ? JSON.parse(titles) : titles;
         const descArray = typeof descriptions === 'string' ? JSON.parse(descriptions) : descriptions;
 
-        // 4. Upload each file to Cloudinary AND save to MongoDB
         const uploadPromises = req.files.map(async (file, index) => {
             if (!file.path) {
                 throw new Error(`File path missing for ${file.originalname}`);
