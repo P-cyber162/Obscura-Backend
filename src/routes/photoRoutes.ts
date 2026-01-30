@@ -1,5 +1,5 @@
 import express from 'express';
-import { protect, restrictTo } from './../controllers/authController';
+import { protect } from './../controllers/authController';
 import {
     getMyPhotos,
     getPublicPhotos,

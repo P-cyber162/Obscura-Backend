@@ -12,7 +12,7 @@ export const getPublicPhotos = catchAsync(
 
     res.status(200).json({
       status: 'success',
-      results: photos.length,
+      results: photos.length, 
       data: { photos }
     });
   }
