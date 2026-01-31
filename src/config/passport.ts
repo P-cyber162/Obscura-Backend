@@ -7,11 +7,15 @@ import { profile } from 'node:console';
 import { doesNotMatch } from 'node:assert';
 dotenv.config();
 
+const CALLBACK_URL = process.env.NODE_ENV === 'production'
+    ? process.env.GOOGLE_CALLBACK_URL
+    : process.env.GOOGLE_CALLBACK_URL_DEV;
+
 passport.use( new GoogleStrategy (
     {
     clientID: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL!,
+    callbackURL: CALLBACK_URL,
     },
     async(accessToken, refreshToken, profile, done) => {
         try{
