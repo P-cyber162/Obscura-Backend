@@ -10,7 +10,8 @@ router
 
 router  
     .route('/create-admin')
-    .post(protect, createAdmin)
+    .post(protect, createAdmin);
+    
 router
      .route('/:username')
      .get(protect, restrictTo('admin'), getUser)
