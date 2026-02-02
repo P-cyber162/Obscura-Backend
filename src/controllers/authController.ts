@@ -250,6 +250,7 @@ export const googleAuth = passport.authenticate('google', {
   scope: ['profile', 'email']
 });
 
+// GOOGLE CALLBACK
 export const googleCallback = (
   req: Request,
   res: Response,
