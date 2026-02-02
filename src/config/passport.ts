@@ -22,7 +22,7 @@ passport.use( new GoogleStrategy (
             const email = profile.emails?.[0]?.value;
 
             if(!email) {
-                return done(new Error('No email form google'), undefined);
+                return done(new Error('No email from google'), undefined);
             };
 
             let user = await User.findOne({ email });
