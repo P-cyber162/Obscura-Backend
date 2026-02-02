@@ -21,7 +21,7 @@ export const getAllUsers = catchAsync(
       data: { users }
     });
   }
-);
+)
 
 // GET SINGLE USER — ADMIN
 export const getUser = catchAsync(
