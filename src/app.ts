@@ -2,13 +2,13 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import morgan from 'morgan';
 import cors from "cors";
 import session from 'express-session';
-import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
-import uploadRoutes from './routes/uploadRoutes';
-import photoRoutes from './routes/photoRoutes';
-import albumRoutes from './routes/albumRoutes';
-import passport from './config/passport';
-import { globalErrorHandler } from './controllers/errorController';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+import photoRoutes from './routes/photoRoutes.js';
+import albumRoutes from './routes/albumRoutes.js';
+import passport from './config/passport.js';
+import { globalErrorHandler } from './controllers/errorController.js';
 
 const app = express();
 

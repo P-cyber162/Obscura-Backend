@@ -1,12 +1,12 @@
 import express from 'express';
-import { protect } from './../controllers/authController';
+import { protect } from './../controllers/authController.js';
 import {
     getMyPhotos,
     getPublicPhotos,
     getPhoto,
     updatePhoto,
     deletePhoto
-} from './../controllers/photoController';
+} from './../controllers/photoController.js';
 
 const router = express.Router();
 

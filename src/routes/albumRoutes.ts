@@ -1,5 +1,5 @@
 import express from 'express';
-import { protect } from './../controllers/authController';
+import { protect } from './../controllers/authController.js';
 import {
     createAlbum,
     getMyAlbums,
@@ -7,7 +7,7 @@ import {
     updateAlbum,
     deleteAlbum,
     addPhotoToAlbum
-} from './../controllers/albumController';
+} from './../controllers/albumController.js';
 
 const router = express.Router();
 

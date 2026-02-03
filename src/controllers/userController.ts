@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import { User } from './../models/userModel';
-import { catchAsync } from '../utils/catchAsync';
+import { User } from './../models/userModel.js';
+import { catchAsync } from '../utils/catchAsync.js';
 
 // GET ALL USERS — ADMIN
 export const getAllUsers = catchAsync(

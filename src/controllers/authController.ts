@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import bcryptjs from 'bcryptjs';
 import crypto from 'crypto';
 import passport from 'passport';
-import { sendPasswordResetEmail } from '../utils/sendEmail';
-import { User } from '../models/userModel';
-import { catchAsync } from '../utils/catchAsync';
+import { sendPasswordResetEmail } from '../utils/sendEmail.js';
+import { User } from '../models/userModel.js';
+import { catchAsync } from '../utils/catchAsync.js';
 
 const signToken = (id: string): string => {
   return jwt.sign(

@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import { Photo } from '../models/photoModel';
-import cloudinary from '../config/cloudinary';
-import { catchAsync } from '../utils/catchAsync';
+import { Photo } from '../models/photoModel.js';
+import cloudinary from '../config/cloudinary.js';
+import { catchAsync } from '../utils/catchAsync.js';
 
 // GET ALL PUBLIC PHOTOS — GUEST & USERS
 export const getPublicPhotos = catchAsync(

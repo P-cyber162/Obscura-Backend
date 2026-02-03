@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
-import { Album } from '../models/albumModel';
-import { Photo } from '../models/photoModel';
+import { Album } from '../models/albumModel.js';
+import { Photo } from '../models/photoModel.js';
 
 // Create album
 export const createAlbum = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

@@ -1,6 +1,6 @@
 import express from 'express';
-import { createAdmin, protect, restrictTo } from '../controllers/authController';
-import { getAllUsers, getUser, deleteUser } from './../controllers/userController';
+import { createAdmin, protect, restrictTo } from '../controllers/authController.js';
+import { getAllUsers, getUser, deleteUser } from './../controllers/userController.js';
 
 const router = express.Router();
 

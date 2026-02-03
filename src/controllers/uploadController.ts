@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
-import cloudinary from '../config/cloudinary';
-import { Photo } from '../models/photoModel';  
-import { catchAsync } from '../utils/catchAsync';
+import cloudinary from '../config/cloudinary.js';
+import { Photo } from '../models/photoModel.js';  
+import { catchAsync } from '../utils/catchAsync.js';
 import fs from 'fs/promises';  // ← For cleanup
 
 export const uploadSingle = catchAsync(
