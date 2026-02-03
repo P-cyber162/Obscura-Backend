@@ -30,6 +30,6 @@ export const connectRedis = async() => {
         console.error('Failed to connect to Redis: ', err);
         throw err;
     }
-};
+}
 
 export default redisClient;
