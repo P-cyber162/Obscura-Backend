@@ -45,4 +45,4 @@ app.use('/api/v1/albums', albumRoutes);
 // GLOBAL ERROR HANDLER
 app.use(globalErrorHandler);
 
-export default app
+export default app;
