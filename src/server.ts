@@ -4,7 +4,6 @@ import connectDB from './config/db.js';
 import { connectRedis } from './config/redis.js';
 import { createApiLimitter, createAuthLimitter, createPasswordResetLimitter } from './middleware/rateLimmtter.js';
 import type { Request, Response, NextFunction } from 'express';
-import ApiError from './utils/ApiError.js';
 
 dotenv.config();
 
