@@ -9,10 +9,7 @@ const db = process.env.DATABASE_URL?.replace(
 const connectDB = async() => {
     try{
         await mongoose.connect(db, {
-            // Critical fix: Use tlsAllowInvalidCertificates for Docker/container environments
-            // This bypasses certificate validation issues in containerized environments
             tlsAllowInvalidCertificates: true,
-            tlsInsecure: true, // For Node.js v20+
             retryWrites: true,
             w: 'majority',
             maxPoolSize: 10,
