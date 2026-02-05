@@ -2,7 +2,7 @@ import app from './app.js';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import { connectRedis } from './config/redis.js';
-import { createApiLimitter, createAuthLimitter, createPasswordResetLimitter } from './middleware/rateLimmtter.js';
+import { createApiLimitter, createAuthLimitter, createPasswordResetLimitter } from './middleware/rateLimiter.js';
 import type { Request, Response, NextFunction } from 'express';
 
 dotenv.config();
