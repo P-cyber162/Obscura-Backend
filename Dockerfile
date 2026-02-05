@@ -3,15 +3,11 @@ FROM node:20-bookworm AS builder
 
 WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json* ./
+# Copy all root files
+COPY . .
 
 # Install dependencies
 RUN npm ci --omit=dev
-
-# Copy source code
-COPY src ./src
-COPY tsconfig.json ./
 
 # Build TypeScript
 RUN npm run build
