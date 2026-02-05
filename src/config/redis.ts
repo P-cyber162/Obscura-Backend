@@ -1,11 +1,9 @@
 import { createClient } from 'redis';
 
+const redisUrl = process.env.REDIS_URL!;
+
 const redisClient = createClient({
-    socket: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379'),
-    },
-    ...(process.env.REDIS_PASSWORD && {password: process.env.REDIS_PASSWORD})
+    url: redisUrl
 });
 
 redisClient.on('error', (err) => {
