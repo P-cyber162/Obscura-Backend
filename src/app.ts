@@ -9,6 +9,7 @@ import photoRoutes from './routes/photoRoutes.js';
 import albumRoutes from './routes/albumRoutes.js';
 import passport from './config/passport.js';
 import { globalErrorHandler } from './controllers/errorController.js';
+import MongoStore from "connect-mongo";
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.use(
         secret: process.env.SESSION_SECRET!,
         resave: false,
         saveUninitialized: false,
+        store: MongoStore.create({
+        mongoUrl: process.env.DATABASE_URL!,
+        }),
         cookie: {
             maxAge: 24 * 60 * 60 * 60 * 1000,
             httpOnly: true,
