@@ -23,7 +23,7 @@
     "exactOptionalPropertyTypes": true,
 
     // Style Options
-    "noUnusedParameters": true,
+    // "noUnusedParameters": true,
 
     // Recommended Options
     "strict": true,
