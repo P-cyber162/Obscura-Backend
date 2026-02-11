@@ -11,10 +11,10 @@ const startServer = async () => {
     try {
         // DATABASE CONNECTION
         await connectDB();
-        
+
 
         // CONNECT REDIS
-        await connectRedis();
+        await connectRedis()
 
         const apiLimitter = createApiLimitter();
         const authLimitter = createAuthLimitter();
