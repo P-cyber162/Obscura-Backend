@@ -14,7 +14,7 @@ const startServer = async () => {
         
 
         // CONNECT REDIS
-        await connectRedis();
+        await connectRedis()
 
         const apiLimitter = createApiLimitter();
         const authLimitter = createAuthLimitter();
